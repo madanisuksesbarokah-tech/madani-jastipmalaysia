@@ -570,6 +570,7 @@ const FAQ = [
 
 /* ===================== UTIL ===================== */
 function fmtIDR(n){ return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+function escJs(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); } // aman untuk nama brand berapostrof (Beryl's, Eng's, dst) di dalam onclick inline
 function fmtMYR(n){ return 'RM ' + n.toLocaleString('id-ID',{minimumFractionDigits:2, maximumFractionDigits:2}); }
 function showToast(msg){
   const wrap = document.getElementById('toastWrap');
@@ -633,7 +634,7 @@ document.getElementById('externalRefs').innerHTML = `<div style="font-size:12px;
     </span>
   </a>`).join('');
 
-document.getElementById('categoryChips').innerHTML = CATS.map(c=>`<div class="chip ${c==='Semua'?'active':''}" data-c="${c}" onclick="setCategory('${c}')">${c}</div>`).join('');
+document.getElementById('categoryChips').innerHTML = CATS.map(c=>`<div class="chip ${c==='Semua'?'active':''}" data-c="${c}" onclick="setCategory('${escJs(c)}')">${c}</div>`).join('');
 function setCategory(c){
   activeCat = c;
   document.querySelectorAll('#categoryChips .chip').forEach(el=>el.classList.toggle('active', el.dataset.c===c));
